@@ -15,8 +15,8 @@
 (define (search-for-primes start end)
   (cond ((>= start end) (print ""))
         ((= (mod start 2) 0) (search-for-primes (+ start 1) end))
-        ((prime? start) (search-for-primes (+ start 1) end))
-        (else (search-for-primes (+ start 1) end))))
+        ((prime? start) (search-for-primes (+ start 2) end))
+        (else (search-for-primes (+ start 2) end))))
 
 
 (define (runtime)
