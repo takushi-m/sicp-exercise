@@ -1,10 +1,15 @@
 #!/usr/bin/env gosh
 
+(define (next n)
+  (if (= n 2)
+      3
+      (+ n 2)))
+
 (define (smallest-divisor n) (find-divisor n 2))
 (define (find-divisor n test-divisor)
   (cond ((> (* test-divisor test-divisor) n) n)
         ((divides? test-divisor n) test-divisor)
-        (else (find-divisor n (+ test-divisor 1)))))
+        (else (find-divisor n (next test-divisor)))))
 (define (divides? a b) (= (mod b a) 0))
 (define (prime? n)
   (define start (runtime))
@@ -39,24 +44,24 @@
 
 ;#(prime microsec)
 ;around 1000
-;(1009 12)
-;(1013 12)
-;(1019 12)
+;(1009 8)
+;(1013 7)
+;(1019 8)
 ;
 ;around 10000
-;(10007 39)
-;(10009 39)
-;(10037 38)
-;(10039 38)
+;(10007 22)
+;(10009 23)
+;(10037 22)
+;(10039 22)
 ;
 ;around 100000
-;(100003 122)
-;(100019 122)
-;(100043 122)
-;(100049 122)
+;(100003 69)
+;(100019 69)
+;(100043 70)
+;(100049 69)
 ;
 ;around 1000000
-;(1000003 386)
-;(1000033 386)
-;(1000037 387)
-;(1000039 391)
+;(1000003 218)
+;(1000033 218)
+;(1000037 218)
+;(1000039 219)

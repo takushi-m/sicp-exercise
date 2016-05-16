@@ -1,10 +1,13 @@
 #!/usr/bin/env gosh
 
-(define (smallest-divisor n) (find-divisor n 2))
+(define (smallest-divisor n)
+  (if (divides? 2 n)
+      2
+      (find-divisor n 3)))
 (define (find-divisor n test-divisor)
   (cond ((> (* test-divisor test-divisor) n) n)
         ((divides? test-divisor n) test-divisor)
-        (else (find-divisor n (+ test-divisor 1)))))
+        (else (find-divisor n (+ test-divisor 2)))))
 (define (divides? a b) (= (mod b a) 0))
 (define (prime? n)
   (define start (runtime))
@@ -39,24 +42,29 @@
 
 ;#(prime microsec)
 ;around 1000
-;(1009 12)
-;(1013 12)
-;(1019 12)
+;(1009 8)
+;(1013 8)
+;(1019 7)
 ;
 ;around 10000
-;(10007 39)
-;(10009 39)
-;(10037 38)
-;(10039 38)
+;(10007 20)
+;(10009 20)
+;(10037 20)
+;(10039 20)
 ;
 ;around 100000
-;(100003 122)
-;(100019 122)
-;(100043 122)
-;(100049 122)
+;(100003 63)
+;(100019 62)
+;(100043 63)
+;(100049 62)
 ;
 ;around 1000000
-;(1000003 386)
-;(1000033 386)
-;(1000037 387)
-;(1000039 391)
+;(1000003 196)
+;(1000033 196)
+;(1000037 196)
+;(1000039 196)
+
+;1-23.scmの結果では1.7-8倍程度だが、こちらの結果ではほぼ2倍になっている。
+;こちらのコードでは`next`関数を省いている。このことから、奇数だけを判定することで
+;確かに二倍速にはなるが、`next`関数を導入したコストにより2倍速にはならず
+;多少遅くなってしまっていることがわかる。
