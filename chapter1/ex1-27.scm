@@ -1,0 +1,21 @@
+#!/usr/bin/env gosh
+(define (square x) (* x x))
+(define (expmod base exp m)
+  (cond ((= exp 0) 1)
+        ((even? exp)
+         (mod (square (expmod base (/ exp 2) m)) m))
+        (else (mod (* base (expmod base (- exp 1) m)) m))))
+
+(define (carmicael-test n)
+  (define (iter idx)
+    (cond ((= idx n) #t)
+          ((= (expmod idx n n) idx) (iter (+ idx 1)))
+          (else #f)))
+  (iter 1))
+
+(print (carmicael-test 561))
+(print (carmicael-test 1105))
+(print (carmicael-test 1729))
+(print (carmicael-test 2465))
+(print (carmicael-test 2821))
+(print (carmicael-test 6601))
